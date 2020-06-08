@@ -15,14 +15,19 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<unistd.h>
-#include<fcntl.h>
 #include<stdlib.h>
 #include<errno.h>
-#include<string.h>
 #include<sys/wait.h>
 
-int mysys(char *command)
-{
+#define MAX 1024
+
+char * get_cmd(char * cmd){
+	printf(">");
+	fgets(cmd,MAX,stdin);
+	return cmd;
+}
+
+int mysys(char *command){
 	pid_t pid;
 	int status;
 	if (command == NULL)
@@ -50,19 +55,11 @@ int mysys(char *command)
 
 
 int main()
-
 {
-
-	printf("--------------------------------------------------\n");
-
-	mysys("echo HELLO WORLD");
-
-	printf("--------------------------------------------------\n");
-
-	mysys("ls /");
-
-	printf("--------------------------------------------------\n");
-
+	char  cmd[MAX];
+	while(1){
+		mysys(get_cmd(cmd));
+	}
 	return 0;
 
 }
